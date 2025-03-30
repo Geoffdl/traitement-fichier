@@ -11,12 +11,17 @@ une liste d’allergènes
 une liste d’additifs.
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produit
 {
-    String categorie;
-    String marque;
-    ScoreNutritionnel nutriscore;
-    String valeursNutritionnels;
-    String ingredients;
-    String additifs;
+    Categorie categore;
+    Marque marque;
+    ScoreNutritionnel scoreNutritionnel;
+    ArrayList<Ingredients> ingredients;
+    List<Ingredients> ingredientss;
+    List<Additif> additifs;
+    List<Allergene> allergenes;
+
 }
