@@ -59,7 +59,3 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
-
-# OS specific
-.DS_Store    # Mac
-Thumbs.db    # Windows
