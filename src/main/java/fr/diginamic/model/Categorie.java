@@ -9,6 +9,10 @@ public class Categorie
         this.libelle = libelle;
     }
 
+    public String getLibelle()
+    {
+        return libelle;
+    }
 
     @Override
     public String toString()

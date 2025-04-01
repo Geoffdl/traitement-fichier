@@ -1,20 +1,21 @@
 package fr.diginamic.model;
 
-public class Marque
-{
-    private String Marque;
+public class Marque {
+    private String nom;
 
-    public Marque(String marque)
+    public Marque(String marque) {
+        this.nom = marque;
+    }
+
+    public String getNom()
     {
-        Marque = marque;
+        return nom;
     }
 
     @Override
-    public String toString()
-    {
-        final StringBuilder sb = new StringBuilder("Marque{");
-        sb.append("Marque='").append(Marque).append('\'');
-        sb.append('}');
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Marque : ");
+        sb.append(nom);
         return sb.toString();
     }
 }

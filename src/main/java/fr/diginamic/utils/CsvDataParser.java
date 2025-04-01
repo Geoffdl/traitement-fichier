@@ -1,4 +1,4 @@
-package fr.diginamic.service;
+package fr.diginamic.utils;
 
 import fr.diginamic.model.*;
 import fr.diginamic.model.Ingredients;
@@ -22,9 +22,9 @@ public class CsvDataParser
             String line = lines.get(i);
             String[] tokens = line.split("\\|", -1);
 
-            List<Ingredients> ingredients = Parser.parseIngredients(tokens[4]);
-            List<Additif> additifs = Parser.parseAdditifs(tokens[29]);
-            List<Allergene> allergenes = Parser.parseAllergenes(tokens[28]);
+            List<Ingredients> ingredients = ProduitParamsParser.parseIngredients(tokens[4]);
+            List<Additif> additifs = ProduitParamsParser.parseAdditifs(tokens[29]);
+            List<Allergene> allergenes = ProduitParamsParser.parseAllergenes(tokens[28]);
 
             Produit produit = new Produit(
                     new Categorie(tokens[0]),
@@ -32,7 +32,8 @@ public class CsvDataParser
                     ScoreNutritionnel.fromLabel(tokens[3]),
                     ingredients,
                     additifs,
-                    allergenes);
+                    allergenes,
+                    tokens[2]);
 
             produits.add(produit);
         }

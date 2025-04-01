@@ -2,11 +2,13 @@ package fr.diginamic;
 
 import fr.diginamic.model.Produit;
 import fr.diginamic.model.Stock;
-import fr.diginamic.service.CsvDataParser;
+import fr.diginamic.service.MenuService;
+import fr.diginamic.service.RechercheMeilleurProduitCategorie;
+import fr.diginamic.service.RechercheMeilleurProduitCategorieMarque;
+import fr.diginamic.service.RechercheMeilleurProduitMarque;
+import fr.diginamic.utils.CsvDataParser;
 import fr.diginamic.utils.MenuDisplay;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,8 +25,7 @@ public class ApplicationOpenFoodFacts
         Scanner scanner = new Scanner(System.in);
         Stock stock = new Stock(produits);
 
-        System.out.println(stock);
-
+        MenuService service;
 
         while (true)
         {
@@ -34,14 +35,21 @@ public class ApplicationOpenFoodFacts
 
             switch (choix)
             {
-//                case 1:
-//                    service = new RecherchePopulationVille();
-//                    service.traiter(recensement, scanner);
-//                    break;
-//                case 2:
-//                    ....
+                case 1:
+                    service = new RechercheMeilleurProduitMarque();
+                    service.traiter(stock, scanner);
+                    break;
+                case 2:
+                    service = new RechercheMeilleurProduitCategorie();
+                    service.traiter(stock, scanner);
+                    break;
+                case 3:
+                    service = new RechercheMeilleurProduitCategorieMarque();
+                    service.traiter(stock,scanner);
+                    break;
 
-                case 5:
+
+                case 4:
                     System.out.println("Au revoir !");
                     scanner.close();
                     return;
