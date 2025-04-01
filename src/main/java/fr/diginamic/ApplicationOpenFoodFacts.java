@@ -7,6 +7,7 @@ import fr.diginamic.service.RechercheMeilleurProduitCategorie;
 import fr.diginamic.service.RechercheMeilleurProduitCategorieMarque;
 import fr.diginamic.service.RechercheMeilleurProduitMarque;
 import fr.diginamic.utils.CsvDataParser;
+import fr.diginamic.utils.InputValidator;
 import fr.diginamic.utils.MenuDisplay;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class ApplicationOpenFoodFacts
         {
             MenuDisplay.displayHomeMenu();
 
-            int choix = scanner.nextInt();
+            int choix = InputValidator.userInputInt(scanner);
 
             switch (choix)
             {

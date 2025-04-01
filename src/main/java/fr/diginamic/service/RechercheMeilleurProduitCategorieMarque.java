@@ -2,6 +2,8 @@ package fr.diginamic.service;
 
 import fr.diginamic.model.Produit;
 import fr.diginamic.model.Stock;
+import fr.diginamic.utils.ComparatorProduitScore;
+import fr.diginamic.utils.InputValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +16,13 @@ public class RechercheMeilleurProduitCategorieMarque extends MenuService
     @Override
     public void traiter(Stock stock, Scanner scanner)
     {
-        scanner.nextLine();
+
         // user input
-        System.out.print("Veuillez saisir le nom de la marque :");
-        String nomMarque = scanner.nextLine().trim();
+        System.out.print("Veuillez saisir le nom de la marque : ");
+        String nomMarque = InputValidator.userInputString(scanner);
 
         System.out.printf("Veuillez saisir la catégorie recherchée pour la marque %s :", nomMarque);
-        String nomCategorie = scanner.nextLine().trim();
+        String nomCategorie = InputValidator.userInputString(scanner);
 
         //Generate list matching queried categories
         List<Produit> queryList = new ArrayList<>();
@@ -34,17 +36,21 @@ public class RechercheMeilleurProduitCategorieMarque extends MenuService
             }
 
         }
-        //sort for result
-        queryList.sort((p1, p2) -> p1.getScoreNutritionnel().compareTo(p2.getScoreNutritionnel()));
 
-        System.out.printf("\nProduits de la marque %s et de la catégorie %s triés par score nutritionnel :\n", nomMarque, nomCategorie);
-        for (Produit item : queryList)
+        //sort for result & print
+        if (!queryList.isEmpty())
         {
-            System.out.printf("\t Score - %s _ Produit - %s \n", item.getScoreNutritionnel(), item.getNom());
+            queryList.sort(new ComparatorProduitScore());
+            System.out.printf("\nProduits de la marque %s et de la catégorie %s triés par score nutritionnel :\n", nomMarque, nomCategorie);
+            for (Produit item : queryList)
+            {
+                System.out.printf("\t Score - %s _ Produit - %s \n", item.getScoreNutritionnel(), item.getNom());
+            }
+        } else{
+            System.out.println("\nAucun produits trouvés pour ces critères de recherche");
         }
         ;
 
-        System.out.println("\nAppuyez sur Entrée pour continuer...");
-        scanner.nextLine();
+        InputValidator.waitForEnter(scanner);
     }
 }
