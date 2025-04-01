@@ -1,0 +1,50 @@
+package fr.diginamic.service;
+
+import fr.diginamic.model.Produit;
+import fr.diginamic.model.Stock;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class RechercheMeilleurProduitCategorieMarque extends MenuService
+{
+
+
+    @Override
+    public void traiter(Stock stock, Scanner scanner)
+    {
+        scanner.nextLine();
+        // user input
+        System.out.print("Veuillez saisir le nom de la marque :");
+        String nomMarque = scanner.nextLine().trim();
+
+        System.out.printf("Veuillez saisir la catégorie recherchée pour la marque %s :", nomMarque);
+        String nomCategorie = scanner.nextLine().trim();
+
+        //Generate list matching queried categories
+        List<Produit> queryList = new ArrayList<>();
+        List<Produit> produits = stock.getProduits();
+
+        for (Produit produit : stock.getProduits())
+        {
+            if (nomMarque.equals(produit.getMarque().getNom()) && nomCategorie.equals(produit.getCategorie().getLibelle()))
+            {
+                queryList.add(produit);
+            }
+
+        }
+        //sort for result
+        queryList.sort((p1, p2) -> p1.getScoreNutritionnel().compareTo(p2.getScoreNutritionnel()));
+
+        System.out.printf("\nProduits de la marque %s et de la catégorie %s triés par score nutritionnel :\n", nomMarque, nomCategorie);
+        for (Produit item : queryList)
+        {
+            System.out.printf("\t Score - %s _ Produit - %s \n", item.getScoreNutritionnel(), item.getNom());
+        }
+        ;
+
+        System.out.println("\nAppuyez sur Entrée pour continuer...");
+        scanner.nextLine();
+    }
+}

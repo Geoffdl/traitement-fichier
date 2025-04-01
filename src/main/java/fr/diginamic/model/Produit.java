@@ -12,20 +12,19 @@ une liste d’additifs.
  */
 
 import java.util.List;
-import java.util.Map;
 
-public class Produit
-{
+
+public class Produit {
     Categorie categorie;
     Marque marque;
     ScoreNutritionnel scoreNutritionnel;
     List<Ingredients> ingredients;
     List<Additif> additifs;
     List<Allergene> allergenes;
+    String nom;
 
-
-    public Produit(Categorie categorie, Marque marque, ScoreNutritionnel scoreNutritionnel, List<Ingredients> ingredients, List<Additif> additifs, List<Allergene> allergenes)
-    {
+    public Produit(Categorie categorie, Marque marque, ScoreNutritionnel scoreNutritionnel,
+            List<Ingredients> ingredients, List<Additif> additifs, List<Allergene> allergenes, String nom) {
         this.categorie = categorie;
         this.marque = marque;
         this.scoreNutritionnel = scoreNutritionnel;
@@ -33,11 +32,47 @@ public class Produit
 
         this.additifs = additifs;
         this.allergenes = allergenes;
+        this.nom = nom;
+    }
+
+
+    public Categorie getCategorie()
+    {
+        return categorie;
+    }
+
+    public Marque getMarque()
+    {
+        return marque;
+    }
+
+    public ScoreNutritionnel getScoreNutritionnel()
+    {
+        return scoreNutritionnel;
+    }
+
+    public List<Ingredients> getIngredients()
+    {
+        return ingredients;
+    }
+
+    public List<Additif> getAdditifs()
+    {
+        return additifs;
+    }
+
+    public List<Allergene> getAllergenes()
+    {
+        return allergenes;
+    }
+
+    public String getNom()
+    {
+        return nom;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         final StringBuilder sb = new StringBuilder("\nProduit{");
         sb.append("categorie=").append(categorie);
         sb.append(", marque=").append(marque);

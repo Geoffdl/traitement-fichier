@@ -1,4 +1,4 @@
-package fr.diginamic.service;
+package fr.diginamic.utils;
 
 import fr.diginamic.model.Additif;
 import fr.diginamic.model.Allergene;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Parser
+public class ProduitParamsParser
 {
     private static Map<String, Ingredients> uniqueIngredients = new HashMap<>();
 
