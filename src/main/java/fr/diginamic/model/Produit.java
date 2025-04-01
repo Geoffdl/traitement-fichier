@@ -58,7 +58,7 @@ public class Produit {
 
     public List<Additif> getAdditifs()
     {
-        return additifs;
+        return this.additifs;
     }
 
     public List<Allergene> getAllergenes()

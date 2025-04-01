@@ -9,9 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProduitParamsParser
+import static fr.diginamic.utils.StringCleaner.cleanMyString;
+
+public class ParserProduitParams
 {
     private static Map<String, Ingredients> uniqueIngredients = new HashMap<>();
+    private static Map<String, Additif> uniqueAdditifs = new HashMap<>();
+    private static Map<String, Allergene> uniqueAllergenes = new HashMap<>();
 
     public static List<Ingredients> parseIngredients(String ingredientsStr) {
         List<Ingredients> ingredients = new ArrayList<>();
@@ -38,33 +42,50 @@ public class ProduitParamsParser
     }
 
     public static List<Additif> parseAdditifs(String additifStr) {
-
         List<Additif> additifs = new ArrayList<>();
-        if(additifStr == null){
+        if(additifStr == null || additifStr.trim().isEmpty()){
             return additifs;
         }
 
-        String[] tokens = additifStr.split("," + ":" + "%");
+        // Clean the string first
+        String cleanedAdditif = cleanMyString(additifStr).toLowerCase();
 
-        for ( int i = 0; i< tokens.length; i ++ ){
-            additifs.add(new Additif(tokens[i]));
+        // Split the cleaned string
+        String[] tokens = cleanedAdditif.split("\\s+");
+
+        // Create Additif objects from cleaned tokens, using the cache
+        for (String token : tokens) {
+            if (!token.isEmpty()) {
+                // Check if we already have this additif
+                Additif additif = uniqueAdditifs.computeIfAbsent(
+                        token,
+                        k -> new Additif(token)
+                );
+                additifs.add(additif);
+            }
         }
 
         return additifs;
     }
 
     public static List<Allergene> parseAllergenes(String allergenesStr) {
-
-
         List<Allergene> allergenes = new ArrayList<>();
-        if(allergenesStr == null){
+        if(allergenesStr == null || allergenesStr.trim().isEmpty()){
             return allergenes;
         }
 
-        String[] tokens = allergenesStr.split("," + ":" + "%");
+        String cleanedAllergenes = cleanMyString(allergenesStr).toLowerCase();
+        String[] tokens = cleanedAllergenes.split(" ");
 
-        for ( int i = 0; i< tokens.length; i ++ ){
-            allergenes.add(new Allergene(tokens[i]));
+//        String[] tokens = allergenesStr.split("," + ":" + "%");
+
+        for (String token : tokens){
+            if(!token.isEmpty()){
+                Allergene allergene = uniqueAllergenes.computeIfAbsent(
+                        token,
+                        k -> new Allergene(token));
+                allergenes.add(allergene);
+            }
         }
 
         return allergenes;

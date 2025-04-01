@@ -20,7 +20,6 @@ public class RechercheMeilleurProduitMarque extends MenuService {
     @Override
     public void traiter(Stock stock, Scanner scanner) {
 
-
         System.out.print("Veuillez saisir le nom de la marque : ");
         String nomMarque = InputValidator.userInputString(scanner);
 
