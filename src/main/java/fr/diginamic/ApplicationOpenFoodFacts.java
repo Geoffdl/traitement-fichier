@@ -20,9 +20,6 @@ public class ApplicationOpenFoodFacts
         Path file = Paths.get("src/main/resources/open-food-facts.csv");
         List<Produit> produits = CsvDataParser.parse(file);
 
-//        File file = new File("src/main/resources/open-food-facts.csv");
-//        List<String> produits = FileUtils.readLines(file, "UTF-8");
-
         Scanner scanner = new Scanner(System.in);
         Stock stock = new Stock(produits);
 

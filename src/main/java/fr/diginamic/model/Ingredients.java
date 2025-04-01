@@ -4,6 +4,7 @@ public class Ingredients
 {
     private String libelle;
 
+
     public Ingredients(String libelle)
     {
         this.libelle = libelle;

@@ -5,19 +5,33 @@ import fr.diginamic.model.Allergene;
 import fr.diginamic.model.Ingredients;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Parser
 {
+    private static Map<String, Ingredients> uniqueIngredients = new HashMap<>();
+
     public static List<Ingredients> parseIngredients(String ingredientsStr) {
-
-
         List<Ingredients> ingredients = new ArrayList<>();
 
-        String[] tokens = ingredientsStr.split("," + ":" + "%");
+        if (ingredientsStr == null || ingredientsStr.trim().isEmpty()) {
+            return ingredients;
+        }
 
-        for ( int i = 0; i< tokens.length; i ++ ){
-            ingredients.add(new Ingredients(tokens[i]));
+        String[] tokens = ingredientsStr.split(",");
+
+        for (String token : tokens) {
+            String trimmed = token.trim();
+            if (!trimmed.isEmpty()) {
+                // Check if we already have this ingredient
+                Ingredients ingredient = uniqueIngredients.computeIfAbsent(
+                        trimmed,
+                        k -> new Ingredients(trimmed)
+                );
+                ingredients.add(ingredient);
+            }
         }
 
         return ingredients;
