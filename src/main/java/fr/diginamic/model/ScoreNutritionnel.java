@@ -36,4 +36,6 @@ public enum ScoreNutritionnel
         }
         throw new IllegalArgumentException("Unknown score nutritionnel: " + label);
     }
+
+
 }

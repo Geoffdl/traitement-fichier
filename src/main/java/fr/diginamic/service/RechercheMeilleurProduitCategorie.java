@@ -19,8 +19,6 @@ public class RechercheMeilleurProduitCategorie extends MenuService
     @Override
     public void traiter(Stock stock, Scanner scanner)
     {
-
-
         System.out.print("Veuillez saisir le nom de la catégorie : ");
         String nomCategorie = InputValidator.userInputString(scanner);
 
@@ -33,7 +31,7 @@ public class RechercheMeilleurProduitCategorie extends MenuService
                 produitsCategorie.add(produit);
             }
         }
-
+        // null case
         if (produitsCategorie.isEmpty()) {
             System.out.println("Aucun produit trouvé pour la catégorie : " + nomCategorie);
             return;

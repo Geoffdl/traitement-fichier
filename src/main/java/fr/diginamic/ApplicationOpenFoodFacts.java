@@ -2,11 +2,8 @@ package fr.diginamic;
 
 import fr.diginamic.model.Produit;
 import fr.diginamic.model.Stock;
-import fr.diginamic.service.MenuService;
-import fr.diginamic.service.RechercheMeilleurProduitCategorie;
-import fr.diginamic.service.RechercheMeilleurProduitCategorieMarque;
-import fr.diginamic.service.RechercheMeilleurProduitMarque;
-import fr.diginamic.utils.CsvDataParser;
+import fr.diginamic.service.*;
+import fr.diginamic.utils.ParserRawCsv;
 import fr.diginamic.utils.InputValidator;
 import fr.diginamic.utils.MenuDisplay;
 
@@ -21,12 +18,14 @@ public class ApplicationOpenFoodFacts
     public static void main(String[] args) throws IOException
     {
         Path file = Paths.get("src/main/resources/open-food-facts.csv");
-        List<Produit> produits = CsvDataParser.parse(file);
+        List<Produit> produits = ParserRawCsv.parse(file);
 
         Scanner scanner = new Scanner(System.in);
         Stock stock = new Stock(produits);
 
         MenuService service;
+
+//        debugging(stock);
 
         while (true)
         {
@@ -48,13 +47,28 @@ public class ApplicationOpenFoodFacts
                     service = new RechercheMeilleurProduitCategorieMarque();
                     service.traiter(stock,scanner);
                     break;
-
-
                 case 4:
+                    service = new RechercheRecurrenceAllergnes();
+                    service.traiter(stock, scanner);
+                    break;
+                case 5:
+                    service = new RechercheRecurrenceAdditifs();
+                    service.traiter(stock, scanner);
+                    break;
+
+                case 6:
                     System.out.println("Au revoir !");
                     scanner.close();
                     return;
             }
+        }
+    }
+
+    public static void debugging(Stock stock){
+
+        for(Produit produit : stock.getProduits()){
+            System.out.println(produit.getAdditifs());
+            System.out.println(produit.getAllergenes());
         }
     }
 }

@@ -17,26 +17,21 @@ public class RechercheMeilleurProduitCategorieMarque extends MenuService
     public void traiter(Stock stock, Scanner scanner)
     {
 
-        // user input
+        // user inputs
         System.out.print("Veuillez saisir le nom de la marque : ");
         String nomMarque = InputValidator.userInputString(scanner);
-
         System.out.printf("Veuillez saisir la catégorie recherchée pour la marque %s :", nomMarque);
         String nomCategorie = InputValidator.userInputString(scanner);
 
         //Generate list matching queried categories
         List<Produit> queryList = new ArrayList<>();
-        List<Produit> produits = stock.getProduits();
-
         for (Produit produit : stock.getProduits())
         {
             if (nomMarque.equals(produit.getMarque().getNom()) && nomCategorie.equals(produit.getCategorie().getLibelle()))
             {
                 queryList.add(produit);
             }
-
         }
-
         //sort for result & print
         if (!queryList.isEmpty())
         {
@@ -46,11 +41,11 @@ public class RechercheMeilleurProduitCategorieMarque extends MenuService
             {
                 System.out.printf("\t Score - %s _ Produit - %s \n", item.getScoreNutritionnel(), item.getNom());
             }
-        } else{
+        } else
+        {
             System.out.println("\nAucun produits trouvés pour ces critères de recherche");
         }
         ;
-
         InputValidator.waitForEnter(scanner);
     }
 }
