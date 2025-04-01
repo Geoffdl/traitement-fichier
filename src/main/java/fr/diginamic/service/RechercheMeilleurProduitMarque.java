@@ -2,6 +2,8 @@ package fr.diginamic.service;
 
 import fr.diginamic.model.Stock;
 import fr.diginamic.model.Produit;
+import fr.diginamic.utils.ComparatorProduitScore;
+import fr.diginamic.utils.InputValidator;
 
 import java.util.Scanner;
 import java.util.List;
@@ -18,9 +20,9 @@ public class RechercheMeilleurProduitMarque extends MenuService {
     @Override
     public void traiter(Stock stock, Scanner scanner) {
 
-        scanner.nextLine();
-        System.out.print("Veuillez saisir le nom de la marque :");
-        String nomMarque = scanner.nextLine().trim();
+
+        System.out.print("Veuillez saisir le nom de la marque : ");
+        String nomMarque = InputValidator.userInputString(scanner);
 
         // Create a list to store products of the specified brand
         List<Produit> produitsMarque = new ArrayList<>();
@@ -38,7 +40,7 @@ public class RechercheMeilleurProduitMarque extends MenuService {
         }
 
         // Sort products by nutritional score (A to F)
-        produitsMarque.sort((p1, p2) -> p1.getScoreNutritionnel().compareTo(p2.getScoreNutritionnel()));
+        produitsMarque.sort(new ComparatorProduitScore());
 
         // Display results
         System.out.println("\nProduits de la marque " + nomMarque + " triés par score nutritionnel :");
@@ -46,8 +48,7 @@ public class RechercheMeilleurProduitMarque extends MenuService {
             System.out.println("Score : " + produit.getScoreNutritionnel() + " - " + produit.getMarque() + " - " + produit.getNom());
         }
 
-        System.out.println("\nAppuyez sur Entrée pour continuer...");
-        scanner.nextLine();
+        InputValidator.waitForEnter(scanner);
 
     }
 }
